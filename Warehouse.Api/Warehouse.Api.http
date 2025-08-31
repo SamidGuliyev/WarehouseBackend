@@ -1,0 +1,6 @@
+@Warehouse.Api_HostAddress = https://localhost:7000
+
+GET {{Warehouse.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

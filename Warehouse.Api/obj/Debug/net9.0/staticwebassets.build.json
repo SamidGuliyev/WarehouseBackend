@@ -1,0 +1,125 @@
+{
+  "Version": 1,
+  "Hash": "PM/MEjLleX1FFEMehFadlNi4lqdN0juhmPX/9kLX/+w=",
+  "Source": "Warehouse.Api",
+  "BasePath": "_content/Warehouse.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Warehouse.Api\\wwwroot",
+      "Source": "Warehouse.Api",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\WareHouse-newProj-last-new-version\\Warehouse.api\\wwwroot\\",
+      "BasePath": "_content/Warehouse.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\WareHouse-newProj-last-new-version\\Warehouse.api\\wwwroot\\uploads\\products\\019802ad-9733-77c8-b227-39b33b564bfb.jpg",
+      "SourceId": "Warehouse.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\WareHouse-newProj-last-new-version\\Warehouse.api\\wwwroot\\",
+      "BasePath": "_content/Warehouse.Api",
+      "RelativePath": "uploads/products/019802ad-9733-77c8-b227-39b33b564bfb#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "231ufgoeyq",
+      "Integrity": "AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\019802ad-9733-77c8-b227-39b33b564bfb.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "uploads/products/019802ad-9733-77c8-b227-39b33b564bfb.231ufgoeyq.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\WareHouse-newProj-last-new-version\\Warehouse.api\\wwwroot\\uploads\\products\\019802ad-9733-77c8-b227-39b33b564bfb.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "124814"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 13 Jul 2025 07:26:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "231ufgoeyq"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/products/019802ad-9733-77c8-b227-39b33b564bfb.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/products/019802ad-9733-77c8-b227-39b33b564bfb.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\WareHouse-newProj-last-new-version\\Warehouse.api\\wwwroot\\uploads\\products\\019802ad-9733-77c8-b227-39b33b564bfb.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "124814"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 13 Jul 2025 07:26:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0="
+        }
+      ]
+    }
+  ]
+}

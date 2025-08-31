@@ -1,0 +1,16 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/Warehouse.Api/uploads/products/019802ad-9733-77c8-b227-39b33b564bfb.231ufgoeyq.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\019802ad-9733-77c8-b227-39b33b564bfb.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"231ufgoeyq"},{"Name":"integrity","Value":"sha256-AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0="},{"Name":"label","Value":"_content/Warehouse.Api/uploads/products/019802ad-9733-77c8-b227-39b33b564bfb.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"124814"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0=\u0022"},{"Name":"Last-Modified","Value":"Sun, 13 Jul 2025 07:26:27 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Warehouse.Api/uploads/products/019802ad-9733-77c8-b227-39b33b564bfb.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\019802ad-9733-77c8-b227-39b33b564bfb.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"124814"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022AvBkIa4nFEqs3FmK6800Wl4uY0QF6FeDABc2KP4VdL0=\u0022"},{"Name":"Last-Modified","Value":"Sun, 13 Jul 2025 07:26:27 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

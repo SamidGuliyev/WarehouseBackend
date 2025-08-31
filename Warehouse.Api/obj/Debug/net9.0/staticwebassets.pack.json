@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\user\\Desktop\\WareHouse-newProj-last-new-version\\Warehouse.api\\wwwroot\\uploads\\products\\019802ad-9733-77c8-b227-39b33b564bfb.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\019802ad-9733-77c8-b227-39b33b564bfb.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.Warehouse.Api.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.Warehouse.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.Warehouse.Api.props",
+      "PackagePath": "build\\Warehouse.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.Warehouse.Api.props",
+      "PackagePath": "buildMultiTargeting\\Warehouse.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.Warehouse.Api.props",
+      "PackagePath": "buildTransitive\\Warehouse.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
