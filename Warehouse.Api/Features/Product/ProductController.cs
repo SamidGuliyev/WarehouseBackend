@@ -81,7 +81,7 @@ namespace Warehouse.Api.Features.Product
         }
 
         [HttpPatch("update/")]
-        public async Task<IActionResult> UpdateProducts([FromForm] UpdateProductDto dto)
+        public async Task<IActionResult> UpdateProducts(UpdateProductDto dto)
         {
             var validation = await updateValidator.ValidateAsync(dto);
             if (!validation.IsValid) return BadRequest(validation.Errors);

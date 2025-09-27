@@ -56,7 +56,7 @@ public record UpdateProductDto(
     int Id,
     string? Size,
     float Price,
-    IFormFile? Thumbnail,
+    string? Thumbnail,
     string? OldThumbnailUrl,
     int? BlockNumber,
     int? PieceNumber,
