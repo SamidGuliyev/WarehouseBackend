@@ -6,4 +6,5 @@ namespace Warehouse.Api.src.Persistence.Repositories.Products;
 public interface IProductRepository : IGenericRepository<Product, int>
 {
     IEnumerable<Product> GetProductsWithJoin(Expression<Func<Product, bool>>? filter = null);
+    IEnumerable<Product> GetProductByName(string name);
 }

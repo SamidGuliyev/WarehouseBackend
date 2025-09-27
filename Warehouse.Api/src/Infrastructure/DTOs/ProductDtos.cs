@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Warehouse.Api.src.Domain.Entities;
 
@@ -12,7 +11,7 @@ public record AddProductDto(
     int BlockNumber,
     int PieceNumber,
     int Stock,
-    IFormFile? Thumbnail
+    string? Thumbnail
 );
 
 
@@ -36,6 +35,23 @@ public record struct ProductJoinDto(
     [property: JsonPropertyName("product_model_name")] string ProductModelNameName
 );
 
+public record struct ProductJoinStockStringDto(
+    int Id,
+    string Size,
+    float? Price,
+    string? Thumbnail,
+    int ColorId,
+    int ProductModelId,
+    int BlockNumber,
+    int PieceNumber,
+    string Stock,
+    Guid UserId,
+    [property: JsonPropertyName("created_at")] DateTime CreatedAt,
+    [property: JsonPropertyName("updated_at")] DateTime UpdatedAt,
+    [property: JsonPropertyName("product_color_name")] string ProductColorName,
+    [property: JsonPropertyName("product_model_name")] string ProductModelNameName
+);
+
 public record UpdateProductDto(
     int Id,
     string? Size,
@@ -46,6 +62,7 @@ public record UpdateProductDto(
     int? PieceNumber,
     int? Stock
 );
+
 
 
 public record struct GetProductItem(

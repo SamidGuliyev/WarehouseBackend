@@ -22,6 +22,22 @@ namespace Warehouse.Api.Features.Product
         {
             return Ok(productService.GetAllProducts(filter));
         }
+        
+        [HttpGet("group/{name}")]
+        public IActionResult GetGroupByName(string name)
+        {
+            return Ok(productService.GetAllProductsByName(name));
+        }
+
+        [HttpPost("image-upload")]
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile file)
+        {
+            if ((file.ContentType is not ("image/jpeg" or "image/jpg" or "image/png")) ||
+                file.Length >= 3 * 1024 * 1024) return BadRequest("Invalid file type or file length");
+            var tempPath = await productService.UploadProductImage(file);
+            return Ok(new{ Thumbnail = tempPath });
+        }
+
 
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
@@ -36,19 +52,18 @@ namespace Warehouse.Api.Features.Product
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Insert([FromForm] AddProductDto dto)
+        public async Task<IActionResult> Insert(AddProductDto dto)
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid) return BadRequest(validation.Errors);
 
-            var id = tokenService.ParseJwtToken(Request.Headers.Authorization.FirstOrDefault()?.Split(" ")[1]!)!.FindFirstValue(ClaimTypes.PrimarySid);
+            var id = tokenService.ParseJwtToken(Request.Headers.Authorization.FirstOrDefault()?.Split(" ")[1]!)!
+                .FindFirstValue(ClaimTypes.PrimarySid);
 
-            if (Guid.TryParse(id, out Guid userId))
-            {
-                await productService.AddProductAsync(dto, userId);
-                return Created();
-            }
-            return BadRequest("Invalid user");
+            if (!Guid.TryParse(id, out var userId)) return BadRequest("Invalid user");
+           
+            await productService.AddProductAsync(dto, userId);
+            return Created();
         }
 
         [HttpDelete("softdelete/{id:int}")]

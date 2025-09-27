@@ -22,6 +22,8 @@ public sealed class ProductEntityConfigrations : IEntityTypeConfiguration<Produc
         data.Property(e => e.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("CURRENT_TIMESTAMP");
         data.Property(e => e.UpdatedAt).HasColumnName("updated_at").HasDefaultValueSql("CURRENT_TIMESTAMP");
         data.Property(e => e.Price).HasColumnName("price");
+        data.HasIndex(p => new { p.Size, p.ColorId, p.ProductModelId })
+            .IsUnique();
 
         data.HasOne(e => e.User)
             .WithMany(e => e.Products)

@@ -7,22 +7,42 @@ namespace Warehouse.Api.src.Infrastructure.Services.Products;
 
 public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
 {
+    public async Task<string> UploadProductImage(IFormFile imagePath)
+    {
+        string? filePath = null;
+        var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "temporary");
+        if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+        filePath = "uploads/temporary/" + Guid.CreateVersion7() + Path.GetExtension(imagePath.FileName);
+        await using var stream =
+            new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath), FileMode.Create);
+        await imagePath.CopyToAsync(stream);
+        
+        return filePath;
+    }
+
     public async Task AddProductAsync(AddProductDto dto, Guid userId)
     {
         try
         {
-            string? filePath = null;
+            var control = unitOfWork.ProductRepository
+                .GetAll(p => p.Size == dto.Size && p.ColorId == dto.ColorId && p.ProductModelId == dto.ProductModelId)
+                .Any();
+            if(control) throw new NullReferenceException("Product already exists");
+            
+            string? productFullPath = null;
 
             if (dto.Thumbnail is not null)
             {
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "products");
-                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+                var tempFullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", dto.Thumbnail);
+                var productFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","uploads","products");
+                if (!Directory.Exists(productFolder)) Directory.CreateDirectory(productFolder);
 
-                filePath = "uploads/products/" + Guid.CreateVersion7() + Path.GetExtension(dto.Thumbnail.FileName);
+                var fileName = Path.GetFileName(tempFullPath);
+                productFullPath = Path.Combine(productFolder, fileName);
 
-                await using var stream =
-                    new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath), FileMode.Create);
-                await dto.Thumbnail.CopyToAsync(stream);
+                File.Move(tempFullPath, productFullPath);
+                
+                
             }
             
 
@@ -40,9 +60,10 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            if (filePath is not null && File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath)))
+            if (dto.Thumbnail is not null && productFullPath != null && 
+                File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", productFullPath)))
             {
-                product.Thumbnail = filePath;
+                product.Thumbnail = productFullPath;
             }
 
             unitOfWork.ProductRepository.Add(product);
@@ -68,6 +89,30 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
         }
         return
         products.Select(p => new ProductDto(p.Id, p.Size, p.Price, p.Thumbnail, p.ColorId, p.ProductModelId, p.BlockNumber, p.PieceNumber, p.Stock, p.CreatedAt));
+    }
+    
+    public IEnumerable<ProductJoinStockStringDto> GetAllProductsByName(string name)
+    {
+        string CalculateStock(Product p)
+        {
+            var num = p.BlockNumber * p.PieceNumber;
+            var blockCount = p.Stock % num;
+            var boxCount = p.Stock / num;
+            return boxCount switch
+            {
+                0 when blockCount == 0 => "No stock",
+                > 0 when blockCount == 0 => $"{boxCount} box",
+                > 0 when blockCount > 0 => $"{boxCount} box, {blockCount / p.PieceNumber} block",
+                _ => $"{blockCount / p.PieceNumber} block"
+            };
+        }
+
+        var products = unitOfWork.ProductRepository.GetProductByName(name);
+        return   products.Select(p => new ProductJoinStockStringDto(
+            p.Id, p.Size, p.Price, p.Thumbnail, p.ColorId, p.ProductModelId,
+            p.BlockNumber, p.PieceNumber, CalculateStock(p), p.UserId, p.CreatedAt, p.UpdatedAt,
+            p.ProductColor.Name, p.ProductModelName.Name));
+     
     }
 
     public ProductDto? GetProductById(int id)
@@ -141,6 +186,14 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
     {
         try
         {
+            var product = unitOfWork.ProductRepository.GetById(dto.Id);
+            var control = unitOfWork.ProductRepository
+                .GetAll(p =>
+                    p.Size == dto.Size && product != null && p.ProductModelId == product.ProductModelId && p.ColorId == product.ColorId && p.Id != dto.Id)
+                .Any();
+            
+            if (control) throw new NullReferenceException("Product already exists");
+            
             var filePath = string.Empty;
 
             if (dto.Thumbnail is not null)
@@ -162,7 +215,7 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
             }
             else if (!string.IsNullOrEmpty(dto.OldThumbnailUrl) && dto.Thumbnail is null) filePath = null;
             
-            await unitOfWork.ProductRepository.Update(new Product
+             await unitOfWork.ProductRepository.Update(new Product
             {
                 Id = dto.Id,
                 Size = dto.Size!,

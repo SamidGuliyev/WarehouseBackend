@@ -37,4 +37,14 @@ public sealed class ProductEfRepository(BaseDbContext db) : GenericEfRepository<
         });
         return filter != null ? obj.Where(filter) : obj;
     }
+    
+    public IEnumerable<Product> GetProductByName(string name)
+    {
+        return db.Products.AsNoTracking()
+            .Include(o => o.ProductModelName)
+            .Include(o => o.ProductColor)
+            .Where(p => (p.Size.Contains(name) || p.ProductModelName.Name.Contains(name) || p.ProductColor.Name.ToLower().Contains(name)) && !p.IsDeleted);
+    
+       
+    }
 }

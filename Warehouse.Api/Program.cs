@@ -16,6 +16,8 @@ builder.Services.AddPresentationScopeResolvers(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseStaticFiles(); // sekli browserde acmaq ucun
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
