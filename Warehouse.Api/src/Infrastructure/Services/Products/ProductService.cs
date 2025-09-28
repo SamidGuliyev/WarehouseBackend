@@ -44,7 +44,6 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
                 
                 
             }
-            
 
             var product = new Product
             {
@@ -194,12 +193,18 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
             
             if (control) throw new NullReferenceException("Product already exists");
             
-            var filePath = string.Empty;
+            var productFullPath = string.Empty;
 
             if (dto.Thumbnail is not null)
             {
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "products");
-                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+                var tempFullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", dto.Thumbnail);
+                var productFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","uploads","products");
+                if (!Directory.Exists(productFolder)) Directory.CreateDirectory(productFolder);
+
+                var fileName = Path.GetFileName(tempFullPath);
+                productFullPath = Path.Combine(productFolder, fileName);
+
+                File.Move(tempFullPath, productFullPath);
 
                 if (!string.IsNullOrEmpty(dto.OldThumbnailUrl))
                 {
@@ -207,20 +212,15 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
                     if (File.Exists(oldFilePath)) File.Delete(oldFilePath);
                 }
 
-                filePath = "uploads/products/" + Guid.CreateVersion7() + Path.GetExtension(dto.Thumbnail.FileName);
-
-                await using var stream =
-                    new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath), FileMode.Create);
-                await dto.Thumbnail.CopyToAsync(stream);
             }
-            else if (!string.IsNullOrEmpty(dto.OldThumbnailUrl) && dto.Thumbnail is null) filePath = null;
+            else if (!string.IsNullOrEmpty(dto.OldThumbnailUrl) && dto.Thumbnail is null) productFullPath = null;
             
              await unitOfWork.ProductRepository.Update(new Product
             {
                 Id = dto.Id,
                 Size = dto.Size!,
                 Price = dto.Price,
-                Thumbnail = filePath,
+                Thumbnail = productFullPath,
                 BlockNumber = dto.BlockNumber ?? 0,
                 PieceNumber = dto.PieceNumber ?? 0,
                 Stock = dto.Stock ?? 0,
