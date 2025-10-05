@@ -62,6 +62,7 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
             if (dto.Thumbnail is not null && productFullPath != null && 
                 File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", productFullPath)))
             {
+                productFullPath = productFullPath.Split("wwwroot\\")?[1];
                 product.Thumbnail = productFullPath;
             }
 
@@ -206,6 +207,8 @@ public sealed class ProductService(IUnitOfWork unitOfWork) : IProductService
 
                 File.Move(tempFullPath, productFullPath);
 
+                productFullPath = productFullPath.Split("wwwroot\\")?[1];
+                
                 if (!string.IsNullOrEmpty(dto.OldThumbnailUrl))
                 {
                     var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", dto.OldThumbnailUrl);
