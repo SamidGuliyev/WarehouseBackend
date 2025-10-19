@@ -1,3 +1,4 @@
+using Warehouse.Api.Application;
 using Warehouse.Api.src.Domain;
 using Warehouse.Api.src.Infrastructure.Services;
 using Warehouse.Api.src.Persistence.UnitOfWork;
@@ -10,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<BaseDbContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddApplicationScopeResolvers();
 builder.Services.AddInfrastructureScopeResolvers();
 builder.Services.AddPresentationScopeResolvers(builder.Configuration);
 
